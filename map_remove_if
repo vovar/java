@@ -1,0 +1,56 @@
+package com.company.Collections.Map.map_remove_if;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/* 
+Создать словарь (Map<String, Integer>) и занести в него десять записей по принципу: "фамилия" - "зарплата".
+Удалить из словаря всех людей, у которых зарплата ниже 500.
+Требования:
+1. Программа не должна выводить текст на экран.
+2. Программа не должна считывать значения с клавиатуры.
+3. Метод createMap() должен создавать и возвращать словарь HashMap с типом элементов String, Integer состоящих из 10 записей по принципу «фамилия» - «зарплата».
+4. Метод removeItemFromMap() должен удалять из словаря всех людей, у которых зарплата ниже 500.
+*/
+
+public class Solution {
+    public static HashMap<String, Integer> createMap() {
+        HashMap<String, Integer> map = new HashMap<>();
+        map.put("John", 800);
+        map.put("Eric", 234);
+        map.put("Kira", 100);
+        map.put("Ki5ra", 20);
+        map.put("Ki4ra", 300);
+        map.put("Ki2ra", 440);
+        map.put("Ki3ra", 80);
+        map.put("Kiyra", 800);
+        map.put("Kijra", 4440);
+        map.put("Kisra", 900);
+    return map;
+    }
+
+    public static void removeItemFromMap(HashMap<String, Integer> map) {
+        HashMap<String, Integer> copymap = new HashMap<>(map);              //создаем копию map 
+        for (Map.Entry<String, Integer> iterator : copymap.entrySet()) {    //запускаем итератор по копии
+            if (iterator.getValue() < 500)                                  //если в копии находим > 500
+                map.remove(iterator.getKey());                              //удаляем из оригинала map значение ключа и весь элемент
+        }
+        
+    }
+
+    public static void main(String[] args) {
+        
+
+    }
+}
+
+/*
+-Исключение выбрасывается из за того,что вы пытаетесь идти в цикле по мапе и из нее же удалять элементы,
+ так нельзя делать.
+ -Понял, то есть в методе создаю новый словарь, копирую туда все значения из оригинального словаря,
+  прохожусь по новому словарю итерацией и удаляю элементы из оригинала.
+-Нельзя одновременно перебирать коллекцию по итератору и модифицировать этот итератор.
+ Решение - использование методов самого iterator коллекции (map.iterator()),
+  создание копии мапы - перебираются значения из копии, удаляются/изменяются в оригинале,
+   создание какой-то дополнительной коллекции, например копии keySet
+ */
